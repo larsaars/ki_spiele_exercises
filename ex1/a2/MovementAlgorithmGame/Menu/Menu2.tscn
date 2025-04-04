@@ -1,0 +1,130 @@
+[gd_scene load_steps=9 format=3 uid="uid://b3a0v07krcrix"]
+
+[ext_resource type="Script" uid="uid://bttujb01t0ax8" path="res://MovementAlgorithmGame/Menu/deleteButton.gd" id="1_all7y"]
+[ext_resource type="Script" uid="uid://buqrs427ysd71" path="res://MovementAlgorithmGame/Menu/ShowVisButton.gd" id="1_vbby7"]
+[ext_resource type="Texture2D" uid="uid://c2hn8f0ppq5a6" path="res://assets/characters/old/target.png" id="2_8ehkm"]
+[ext_resource type="PackedScene" uid="uid://c8yq2ffemhwv7" path="res://MovementAlgorithmGame/Menu/selectable_algorithm_element.tscn" id="3_ttw3x"]
+[ext_resource type="Script" uid="uid://6xthj1uds2oe" path="res://MovementAlgorithmGame/Menu/PlusButton.gd" id="4_jsnjr"]
+[ext_resource type="Texture2D" uid="uid://dbdpg7yma8uyn" path="res://assets/characters/old/plus.png" id="4_y07i8"]
+[ext_resource type="Script" uid="uid://2bt200f6wlsa" path="res://MovementAlgorithmGame/Menu/SimulationSpeed.gd" id="6_t8hct"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pmo7r"]
+size = Vector2(69.466, 69.5)
+
+[node name="Menu" type="CanvasLayer" groups=["myCanvasLayer"]]
+
+[node name="GUI" type="MarginContainer" parent="."]
+offset_right = 188.0
+offset_bottom = 112.0
+
+[node name="ColorRect" type="ColorRect" parent="GUI"]
+layout_mode = 2
+color = Color(0.176471, 0.176471, 0.176471, 0.698039)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI" groups=["MenuItemList"]]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="X" type="MarginContainer" parent="GUI/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Area2D" type="Area2D" parent="GUI/HBoxContainer/VBoxContainer/HBoxContainer/X"]
+position = Vector2(52.034, 56)
+script = ExtResource("1_all7y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GUI/HBoxContainer/VBoxContainer/HBoxContainer/X/Area2D"]
+position = Vector2(-10.034, -14)
+shape = SubResource("RectangleShape2D_pmo7r")
+
+[node name="Button" type="Button" parent="GUI/HBoxContainer/VBoxContainer/HBoxContainer/X"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 1
+icon = ExtResource("2_8ehkm")
+icon_alignment = 1
+
+[node name="+" type="MarginContainer" parent="GUI/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Button" type="Button" parent="GUI/HBoxContainer/VBoxContainer/HBoxContainer/+"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 1
+icon = ExtResource("4_y07i8")
+icon_alignment = 1
+script = ExtResource("4_jsnjr")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="GUI/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="ShowVisButton" type="CheckButton" parent="GUI/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+button_pressed = true
+text = "Show Visualization"
+alignment = 1
+icon_alignment = 1
+script = ExtResource("1_vbby7")
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/HBoxContainer/VBoxContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/HBoxContainer/VBoxContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI/HBoxContainer/VBoxContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Simulation Speed: "
+
+[node name="TimeValueLabel" type="Label" parent="GUI/HBoxContainer/VBoxContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "1"
+
+[node name="HSlider" type="HSlider" parent="GUI/HBoxContainer/VBoxContainer2/MarginContainer/VBoxContainer" groups=["MovementGameSpeedSlider"]]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+max_value = 2.0
+step = 0.1
+value = 1.0
+script = ExtResource("6_t8hct")
+
+[node name="SelectableAlgorithmElement" parent="GUI/HBoxContainer" instance=ExtResource("3_ttw3x")]
+layout_mode = 2
+
+[connection signal="body_entered" from="GUI/HBoxContainer/VBoxContainer/HBoxContainer/X/Area2D" to="GUI/HBoxContainer/VBoxContainer/HBoxContainer/X/Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="GUI/HBoxContainer/VBoxContainer/HBoxContainer/X/Area2D" to="GUI/HBoxContainer/VBoxContainer/HBoxContainer/X/Area2D" method="_on_body_exited"]
+[connection signal="mouse_entered" from="GUI/HBoxContainer/VBoxContainer/HBoxContainer/X/Area2D" to="GUI/HBoxContainer/VBoxContainer/HBoxContainer/X/Area2D" method="_on_mouse_entered"]
+[connection signal="button_down" from="GUI/HBoxContainer/VBoxContainer/HBoxContainer/X/Button" to="GUI/HBoxContainer/VBoxContainer/HBoxContainer/X/Area2D" method="_on_button_button_down"]
+[connection signal="button_down" from="GUI/HBoxContainer/VBoxContainer/HBoxContainer/+/Button" to="GUI/HBoxContainer/VBoxContainer/HBoxContainer/+/Button" method="_on_button_down"]
+[connection signal="toggled" from="GUI/HBoxContainer/VBoxContainer2/ShowVisButton" to="GUI/HBoxContainer/VBoxContainer2/ShowVisButton" method="_on_toggled"]
+[connection signal="value_changed" from="GUI/HBoxContainer/VBoxContainer2/MarginContainer/VBoxContainer/HSlider" to="GUI/HBoxContainer/VBoxContainer2/MarginContainer/VBoxContainer/HSlider" method="_on_value_changed"]
+
+[editable path="GUI/HBoxContainer/SelectableAlgorithmElement"]

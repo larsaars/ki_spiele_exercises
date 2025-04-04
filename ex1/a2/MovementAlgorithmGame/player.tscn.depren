@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmcpj53ki1t7f"]
+
+[ext_resource type="Script" path="res://MovementAlgorithmGame/Character/player.gd" id="1_18qwa"]
+[ext_resource type="Texture2D" uid="uid://hqnmx1ni8aob" path="res://assets/characters/icon.svg" id="2_8anik"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6krby"]
+size = Vector2(70, 70)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_78ajp"]
+size = Vector2(70, 70)
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_18qwa")
+
+[node name="C-Sprite2D" type="Sprite2D" parent="."]
+z_index = -5
+scale = Vector2(0.546875, 0.546875)
+texture = ExtResource("2_8anik")
+
+[node name="C-CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6krby")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_78ajp")

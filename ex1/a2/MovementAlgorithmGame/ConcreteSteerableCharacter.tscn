@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://27kynex1xi4c"]
+
+[ext_resource type="Script" uid="uid://dopbo4vjmupsm" path="res://MovementAlgorithmGame/ConcreteSteerableCharacter.gd" id="1_vfp1a"]
+[ext_resource type="Texture2D" uid="uid://cdjmoqqhvivi" path="res://assets/characters/Spaceship0_white.png" id="2_8ita4"]
+[ext_resource type="Texture2D" uid="uid://c4srluphakbyf" path="res://assets/characters/dot.png" id="2_o3r38"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sm7g1"]
+radius = 31.0644
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_od0rg"]
+radius = 28.8444
+
+[node name="ConcreteSteerableCharacter" type="CharacterBody2D" groups=["NPC"]]
+collision_mask = 0
+script = ExtResource("1_vfp1a")
+movementAlgorithmNames = Array[String](["Align", "Seek"])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_8ita4")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_sm7g1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_od0rg")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+z_index = -1
+energy = 2.5
+range_z_max = -1
+range_layer_min = -101
+shadow_color = Color(0, 0, 0, 1)
+texture = ExtResource("2_o3r38")

@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8yq2ffemhwv7"]
+
+[ext_resource type="Script" uid="uid://bk5n3eehwgjno" path="res://MovementAlgorithmGame/Menu/UICharacterController.gd" id="1_5jdfg"]
+[ext_resource type="Texture2D" uid="uid://cdjmoqqhvivi" path="res://assets/characters/Spaceship0_white.png" id="1_7g4ff"]
+[ext_resource type="Script" uid="uid://depm52gdasrmb" path="res://MovementAlgorithmGame/Menu/SelectSpawnButton.gd" id="2_svi0n"]
+[ext_resource type="Script" uid="uid://c0jf7ua4up8jv" path="res://MovementAlgorithmGame/Menu/SelectPopout.gd" id="3_ppxq7"]
+[ext_resource type="Script" uid="uid://c00ouia6ttp18" path="res://MovementAlgorithmGame/Menu/ImageSelect.gd" id="3_y855y"]
+
+[node name="SelectableAlgorithmElement" type="MarginContainer"]
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("1_5jdfg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+focus_mode = 1
+icon = ExtResource("1_7g4ff")
+expand_icon = true
+script = ExtResource("2_svi0n")
+
+[node name="ImageSelect" type="MenuButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Icon ▼"
+script = ExtResource("3_y855y")
+
+[node name="SelectPopout" type="MenuButton" parent="VBoxContainer"]
+layout_mode = 2
+text = "Algorithms ▼"
+script = ExtResource("3_ppxq7")
+
+[connection signal="button_down" from="VBoxContainer/HBoxContainer/Button" to="VBoxContainer/HBoxContainer/Button" method="_on_button_down"]

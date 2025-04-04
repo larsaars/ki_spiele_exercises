@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://drmxg60wta5uu"]
+
+[ext_resource type="Script" uid="uid://cabfh8mp50m5v" path="res://MovementAlgorithmGame/DraggingObject.gd" id="1_dts7w"]
+
+[node name="dragNode" type="Node2D"]
+script = ExtResource("1_dts7w")

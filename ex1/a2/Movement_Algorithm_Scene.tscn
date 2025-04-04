@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://dl8fqrdq01nqd"]
+
+[ext_resource type="Script" uid="uid://pb7jjfrgr2vo" path="res://MovementAlgorithmGame/GeometryVisualizer2D.gd" id="1_4paep"]
+[ext_resource type="Texture2D" uid="uid://dvahwd0fk8jmv" path="res://assets/tiles/SpaceBackground8_by4.png" id="2_q6uue"]
+[ext_resource type="PackedScene" uid="uid://cmcpj53ki1t7f" path="res://MovementAlgorithmGame/player.tscn" id="2_qgcy0"]
+[ext_resource type="PackedScene" uid="uid://b3a0v07krcrix" path="res://MovementAlgorithmGame/Menu/Menu2.tscn" id="5_ua3ib"]
+
+[node name="MovementalgorithmScene" type="Node2D" groups=["scene"]]
+metadata/_edit_horizontal_guides_ = [488.0]
+
+[node name="GeometryVisualizer2D" type="Node2D" parent="." groups=["geometryVisualizer2D"]]
+script = ExtResource("1_4paep")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(4096, 4096)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+modulate = Color(0.9, 0.9, 0.9, 1)
+z_index = -2
+position = Vector2(-340, -208)
+texture = ExtResource("2_q6uue")
+centered = false
+region_rect = Rect2(0, 0, 72, 72)
+
+[node name="player" parent="." groups=["Player"] instance=ExtResource("2_qgcy0")]
+z_index = -1
+position = Vector2(536, 252)
+scale = Vector2(1.5, 1.5)
+collision_layer = 2
+collision_mask = 2
+
+[node name="Camera2D2" type="Camera2D" parent="player"]
+
+[node name="Menu2" parent="." instance=ExtResource("5_ua3ib")]
