@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "MyAStar",
+"language": "GDScript",
+"path": "res://my_astar.gd"
+} ]
+_global_script_class_icons={
+"MyAStar": ""
+}
+
 [application]
 
 config/name="Grid-based pathfinding with Astar"

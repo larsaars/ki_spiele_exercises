@@ -22,8 +22,8 @@ onready var _half_cell_size = cell_size / 2
 
 func _ready():
 	var walkable_cells_list = astar_add_walkable_cells(obstacles)
-	#astar_connect_walkable_cells(walkable_cells_list)
-	astar_connect_walkable_cells_diagonal(walkable_cells_list)
+	astar_connect_walkable_cells(walkable_cells_list)
+	# astar_connect_walkable_cells_diagonal(walkable_cells_list)
 
 
 # Click and Shift force the start and end position of the path to update
@@ -59,15 +59,46 @@ func astar_add_walkable_cells(obstacles = []):
 
 # Once you added all points to the AStar node, you've got to connect them
 func astar_connect_walkable_cells(points_array):
-	### TODO
-	return
+	for point in points_array:
+		var point_index = calculate_point_index(point)
+		
+		# Check and connect to adjacent diagonal/orthogonal
+		# define all points
+		var top_left = Vector2(point.x - 1, point.y - 1)  # top left, 0
+		var top = Vector2(point.x, point.y - 1)  # top, 1
+		var top_right = Vector2(point.x + 1, point.y - 1)  # top right, 2
+		var left = Vector2(point.x - 1, point.y)  # left, 3
+		var right = Vector2(point.x + 1, point.y)  # right, 4
+		var bottom_left = Vector2(point.x - 1, point.y + 1)  # bottom left, 5
+		var bottom = Vector2(point.x, point.y + 1)  # bottom, 6
+		var bottom_right = Vector2(point.x + 1, point.y + 1)  # bottom right, 7
+		
+		var neighbors = []
+		
+		var hasTop = top in points_array
+		var hasBottom = bottom in points_array
+		var hasLeft = left in points_array
+		var hasRight = right in points_array
+		
+		# add orthogonal if walkable
+		if hasTop: neighbors.append(top)
+		if hasBottom: neighbors.append(bottom)
+		if hasLeft: neighbors.append(left)
+		if hasRight: neighbors.append(right)
+		
+		# add diagonal if walkable
+		if hasTop or hasLeft:
+			neighbors.append(top_left)
+		if hasTop or hasRight:
+			neighbors.append(top_right)
+		if hasBottom or hasLeft:
+			neighbors.append(bottom_left)
+		if hasBottom or hasRight:
+			neighbors.append(bottom_right)
 
-
-# This is a variation of the method above
-# It connects cells horizontally, vertically AND diagonally
-func astar_connect_walkable_cells_diagonal(points_array):
-	### TODO
-	return
+		for neighbor in neighbors:
+			var neighbor_index = calculate_point_index(neighbor)
+			astar_node.connect_points(point_index, neighbor_index, false)
 
 
 func is_outside_map_bounds(point):
